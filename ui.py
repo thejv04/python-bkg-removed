@@ -37,7 +37,6 @@ class App(ctk.CTk):
         self._build_ui()
 
     def _build_ui(self):
-        # ── Header ──────────────────────────────────────────────
         header = ctk.CTkFrame(self, fg_color=BG_CARD, corner_radius=0, height=64)
         header.pack(fill="x", side="top")
         header.pack_propagate(False)
@@ -56,20 +55,16 @@ class App(ctk.CTk):
             text_color=TEXT_MUTED,
         ).pack(side="left", padx=0, pady=18)
 
-        # ── Body ────────────────────────────────────────────────
         body = ctk.CTkFrame(self, fg_color="transparent")
         body.pack(fill="both", expand=True, padx=24, pady=20)
         body.columnconfigure(0, weight=1)
         body.columnconfigure(1, weight=1)
         body.rowconfigure(0, weight=1)
 
-        # Panel izquierdo — original
         self.panel_left = self._build_image_panel(body, "Input", 0)
 
-        # Panel derecho — resultado
         self.panel_right = self._build_image_panel(body, "Output", 1)
 
-        # ── Footer / controles ──────────────────────────────────
         footer = ctk.CTkFrame(self, fg_color=BG_CARD, corner_radius=0, height=76)
         footer.pack(fill="x", side="bottom")
         footer.pack_propagate(False)
@@ -188,13 +183,11 @@ class App(ctk.CTk):
         self.input_path = path
         self.output_path = None
 
-        # Mostrar preview izquierdo
         img = get_image_preview(path, (380, 380))
         photo = ImageTk.PhotoImage(img)
         self.img_label_left.configure(image=photo, text="")
         self.img_label_left.image = photo
 
-        # Limpiar panel derecho
         self._set_placeholder_text(self.img_label_right, "Procesando…")
         self.img_label_right.configure(text="")
 
