@@ -5,10 +5,6 @@ import os
 
 
 def remove_background(input_path: str, output_path: str = None) -> str:
-    """
-    Elimina el fondo de una imagen JPG/PNG.
-    Retorna la ruta del archivo de salida.
-    """
     if not os.path.exists(input_path):
         raise FileNotFoundError(f"No se encontró el archivo: {input_path}")
 
@@ -28,9 +24,6 @@ def remove_background(input_path: str, output_path: str = None) -> str:
 
 
 def get_image_preview(path: str, max_size: tuple = (400, 400)) -> Image.Image:
-    """
-    Carga una imagen y la redimensiona para previsualización.
-    """
     img = Image.open(path)
     img.thumbnail(max_size, Image.LANCZOS)
     return img

@@ -43,14 +43,14 @@ class App(ctk.CTk):
 
         ctk.CTkLabel(
             header,
-            text="✦  BG Remover",
+            text="Background remover",
             font=ctk.CTkFont(family="Helvetica", size=20, weight="bold"),
             text_color=TEXT_PRIMARY,
         ).pack(side="left", padx=28, pady=18)
 
         ctk.CTkLabel(
             header,
-            text="Eliminar fondos con IA",
+            text="With Python",
             font=ctk.CTkFont(size=13),
             text_color=TEXT_MUTED,
         ).pack(side="left", padx=0, pady=18)
@@ -193,7 +193,7 @@ class App(ctk.CTk):
 
         self.btn_process.configure(state="normal")
         self.btn_save.configure(state="disabled", text_color=TEXT_MUTED)
-        self.status_label.configure(text=f"📂  {os.path.basename(path)}", text_color=TEXT_MUTED)
+        self.status_label.configure(text=f"{os.path.basename(path)}", text_color=TEXT_MUTED)
 
     def process_image(self):
         if not self.input_path:
@@ -201,8 +201,8 @@ class App(ctk.CTk):
 
         self.btn_process.configure(state="disabled", text="Procesando…")
         self.btn_open.configure(state="disabled")
-        self.status_label.configure(text="⏳  Eliminando fondo…", text_color=TEXT_MUTED)
-        self._set_placeholder_text(self.img_label_right, "⏳  Procesando…")
+        self.status_label.configure(text="Eliminando fondo…", text_color=TEXT_MUTED)
+        self._set_placeholder_text(self.img_label_right, "Procesando…")
 
         thread = threading.Thread(target=self._run_removal, daemon=True)
         thread.start()
@@ -217,8 +217,6 @@ class App(ctk.CTk):
 
     def _on_success(self):
         img = get_image_preview(self.output_path, (380, 380))
-
-        # Fondo de tablero de ajedrez para mostrar transparencia
         checker = Image.new("RGBA", img.size, (0, 0, 0, 0))
         sq = 12
         for y in range(0, img.height, sq):
@@ -240,12 +238,12 @@ class App(ctk.CTk):
         self.btn_process.configure(state="normal", text="Eliminar fondo")
         self.btn_open.configure(state="normal")
         self.btn_save.configure(state="normal", text_color=TEXT_PRIMARY)
-        self.status_label.configure(text="✅  Listo", text_color=SUCCESS)
+        self.status_label.configure(text="operación realizada", text_color=SUCCESS)
 
     def _on_error(self, msg: str):
         self.btn_process.configure(state="normal", text="Eliminar fondo")
         self.btn_open.configure(state="normal")
-        self._set_placeholder_text(self.img_label_right, f"❌  Error")
+        self._set_placeholder_text(self.img_label_right, f"Error")
         self.status_label.configure(text=f"Error: {msg}", text_color=ERROR)
         messagebox.showerror("Error", msg)
 
@@ -263,4 +261,4 @@ class App(ctk.CTk):
 
         img = Image.open(self.output_path)
         img.save(dest, "PNG")
-        self.status_label.configure(text=f"💾  Guardado en {os.path.basename(dest)}", text_color=SUCCESS)
+        self.status_label.configure(text=f"Guardado en {os.path.basename(dest)}", text_color=SUCCESS)
